@@ -66,10 +66,15 @@ while True:
             text = result['text']
             print('VOCÊ FALA: ',text)
 
-            if text == 'que horas são' or text == 'me diga as hora' or text == 'horas por favor':
+            if text == 'que horas são' or text == 'me diga as hora' or text == 'horas por favor' or text == 'gettime':
                 print(text)
                 print('LUKARIUS RESPONDE: ',cor.SystemInfo.get_time())
                 speak(cor.SystemInfo.get_time())
+            
+            if text == 'me da um nome' or 'me informe um nome' or 'me diga um nome' or 'getnome':
+                print(text)
+                print('LUKARIUS RESPONDE: ',cor.SystemInfo.getAname())
+                speak(cor.SystemInfo.getAname())
             else:
                 speak("LUKARIUS REPETE: ",text)
   
