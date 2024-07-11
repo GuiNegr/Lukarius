@@ -17,7 +17,7 @@ import pyttsx3
 
 '''IMPOR REFERNTE AOS COMANDOS UTILIZADOS'''
 # -> O PROPRIO NOME JA FALA
-import cor
+from core import core
 
 
 # -> INICIALIZAÇÃO DO SINTESE DE VOZ / CONSEGUIR ALOCAR PARA FICAR COM VOZ DE BRASILEIRO / INICALIZAÇÃO DE APRESENTAÇÃO
@@ -31,6 +31,7 @@ for voice in voices:
         break
 engine.setProperty('voice',voice_id)
 engine.say("olá bom dia, meu nome é lukarius prazer")
+
 engine.runAndWait()
 
 
@@ -40,7 +41,10 @@ def speak(text):
     engine.runAndWait()
 
 
-
+print("INCIALIZANDO O LUKARIUS")
+speak("OLÁ SENHOR SOU O LUKARIUS QUAL É SEU NOME?")
+user = input("OLÁ SENHOR QUAL É SEU NOME?")
+speak("PRAZER! ")
 
 # - > UTILIZAÇÃO DO VOSK PARA CONSEGUIR CAPTAR MEU MICROFONE
 model = Model('model')
@@ -52,31 +56,34 @@ stream.start_stream()
 
 
 # - > LAÇO DE REPETIÇÃO UTILIZADO PARA MANTER O LUKARIUS "VIVO"
+
 while True:
     data = stream.read(2048)
+
+    
     if len(data) == 0:
         break
     if rec.AcceptWaveform(data):
         #UTILIZANDO O VOSK PARA RECUPERAR OQUE FOI DITO NO MICROFONE E TRANSFORMAR EM UM JSON PARA APOS ISSO CONSEGUIR SILIZAR OQUE SERIA TEXTO
         result = rec.Result()
         result = json.loads(result)
-        
+
+
+
         if result is not None:
             
             text = result['text']
             print('VOCÊ FALA: ',text)
 
             if text == 'que horas são' or text == 'me diga as hora' or text == 'horas por favor' or text == 'gettime':
-                print(text)
-                print('LUKARIUS RESPONDE: ',cor.SystemInfo.get_time())
-                speak(cor.SystemInfo.get_time())
+                print('LUKARIUS RESPONDE: ', core.SystemInfo.get_time())
+                speak(core.SystemInfo.get_time())
             
-            if text == 'me da um nome' or 'me informe um nome' or 'me diga um nome' or 'getnome':
-                print(text)
-                print('LUKARIUS RESPONDE: ',cor.SystemInfo.getAname())
-                speak(cor.SystemInfo.getAname())
-            else:
-                speak("LUKARIUS REPETE: ",text)
+            if text == 'me diga um nome' or text == 'me digam mome' or text == 'me diga o nome' or text == 'faça um nome':
+                nome = core.SystemInfo.getAname()
+                print('LUKARIUS RESPONDE: AQUI ESTÁ O NOME GERADO', nome)
+                speak(nome)
+   
   
 
 
