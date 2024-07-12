@@ -251,5 +251,9 @@ BOM ATÉ ENTÃO O PROGRAMA USA O LAÇO WHILE PARA FICAR EM FUNCIONAMENTO INFINIT
                     speak("LUKARIUS REPETE: ",text)
     
 
+# GIT BRANCH luk0.4
+Finalmente a utilização do nlu para conseguir criar um prog
+criando a pasta nlu tem agora um arquivo .yml oque raios é isso?
+bom uma pesquisa me indicou que seria um fomrtado para serialização de dados para arquivos de configuração para serviços de automação(linguagem para escrever ia?)
 
-    
+o arquivo .yml ajuda na criação de comandos e posteriormente podemos transformar em um json para fazer uma comunicação simples e legivel
