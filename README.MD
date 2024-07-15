@@ -14,7 +14,7 @@ abaixo em observações aparece o como fazer isso
 # Técnologia:
     reconhecimento de voz(VOSK)
     sintese de voz.(pyttsx3)
-    algum tipo de tecnologia de IA
+    algum tipo de tecnologia de IA NLU COM CLASSIFICAÇÃO DE TEXTO
 
 # Observações:
     estou utilizando um ambiente ubuntu e tive que fazer algumas instalações de pacotes python, acredito que seja normal isto. vou anotar os "codigos" utilizados aqui para futuramente me ajudar
@@ -214,8 +214,6 @@ BOM ATÉ ENTÃO O PROGRAMA USA O LAÇO WHILE PARA FICAR EM FUNCIONAMENTO INFINIT
         engine.runAndWait()
 
 
-
-
     UTILIZAÇÃO DO VOSK PARA CONSEGUIR CAPTAR MEU MICROFONE
     
     model = Model('model')
@@ -257,3 +255,39 @@ criando a pasta nlu tem agora um arquivo .yml oque raios é isso?
 bom uma pesquisa me indicou que seria um fomrtado para serialização de dados para arquivos de configuração para serviços de automação(linguagem para escrever ia?)
 
 o arquivo .yml ajuda na criação de comandos e posteriormente podemos transformar em um json para fazer uma comunicação simples e legivel
+
+# ITERAÇÕES EM PYTHON 
+
+for command in data['commands']:
+    inputs.append(command['input'])
+    outputs.append('{}/{}'.format(command['entity'], command['action']))
+
+# Processar texto: Palavras, caracteres, bytes, sub-palavras
+
+chars = set()
+
+for ch in inputs + outputs:
+    if ch not in chars:
+        chars.add(ch)
+
+nesse codigo escrito em model.py temos duas listas que são formadas a partir de dados que estão no arquivo .yml oque acontece
+repara que em python o programa funciona de forma dinamica, ou seja não precisa de tipagem. e isso me trouxe algumas duvidas. então irei analizar cada passagem do codigo que achei "diferente".
+    
+    - Começãndo com a iteração. em java teriamos algo mais verboso como for(int i = 0; i < a.length(assumindo q é um array); i++) veja, precisamos declarar uma varieavel com um tipo que consegue ser iterado e incrementado. um char não seria possivel aqui. porém em python não o for dele se adapta com oque vc for passar. na primeira iteração fica. PARA CADA COMANDO NA LISTA DATA(CUJA TEVE A IMPORTAÇÃO DE VALORES BASIADO NUMA LISTA DE COMANDOS NO ARQUIVO .YML) CRIA-SE A VARIAVEL COMMAND. quando ela passa no bloco de codigo o python entende que se data é um grande array de apenas "objetos" com "atributos"(falando em javanes para eu entenderkkk) e o command se trata desse objetos em si. para cada input que aparece em um comand adiciona na primeira lista.
+
+    - Apos isso temos esse set oque raios é ele? é uma forma de guardar valores unicos, certificando que não hávera duplicada na inserção de um ou mais valores nele.
+
+    -e agora vem oque fez eu querer analisar REAPARA QUE EU CRIO UMA VARIAVEL CHAMADA CH, mas não espefico que ela é um char. então como o python reconhece que oque vai adicionar são apenas caracteres?
+
+
+    ONE HOT ENCODING. uma forma de utilzia machine learniing. bom entendi mais a utilização do que a abstração. ficaria assim.
+
+    NUMA LISTA HÁ 3 PESSOAS, UMA DELAS E CASADA,UMA DIVORCIADA E UMA SOLTEIRA. COM OM ONE HOT ENCODING FICARIA UMA TABELA ASSIM
+
+    PESSOAS    CASADO  DIVORCIADO SOLTEIRO
+    Joao         1          0         0
+    carlos       0          1         0
+    josé         0          0         1
+
+    transformei um dado numa emtabelação de positivo e negativo porém sem estudo não entendo o porque disso é utilizado.
+    Bom cheguei em uma parte que vamos utilizar machine learning e quero me preapara para isso. vou dar uma pausa no tutorial para ver como funciona machine learning e depois continuo 

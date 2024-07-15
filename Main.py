@@ -83,6 +83,7 @@ while True:
                 nome = core.SystemInfo.getAname()
                 print('LUKARIUS RESPONDE: AQUI ESTÁ O NOME GERADO', nome)
                 speak(nome)
+
    
   
 
